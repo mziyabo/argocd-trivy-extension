@@ -18,6 +18,7 @@ jobs:
       - name: Upload artifact to GitHub Releases
         run: |
             version="v$(node -p "require('./package.json').version")"
-            gh release create $version ./dist/resources/extension-trivy.tar
+            sha256sum ./dist/resources/extension-trivy.tar > extension-trivy_checksums.txt
+            gh release create -F CHANGELOG.md --verify-tag $version ./dist/resources/extension-trivy.tar ./extension-trivy_checksums.txt
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
