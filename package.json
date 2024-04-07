@@ -12,7 +12,6 @@
     "recharts": "^2.12.3"
   },
   "peerDependencies": {
-    "argo-ui": "git+https://github.com/argoproj/argo-ui.git",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",

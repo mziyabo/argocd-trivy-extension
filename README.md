@@ -1,7 +1,7 @@
 ## argocd-trivy-extension
-Displays vulnerability report data from [Trivy](https://aquasecurity.github.io/trivy), a open source security scanner.
+Argo CD UI extension that displays vulnerability report data from [Trivy](https://aquasecurity.github.io/trivy), an open source security scanner .
 
-![table](./docs/table.png) ![vulnerabilities dashbaord](./docs/dashboard.png)
+![table](./docs/table.png|width=50%) ![vulnerabilities dashboard](./docs/dashboard.png|width=50%)
 
 ## Prerequisites
 - Argo CD version 2.6+
@@ -46,7 +46,7 @@ spec:
 ```
 
 ### Release Notes:
-Working but still WiP, contributions welcome.
+WIP, contributions welcome
 
 ### License:
 Apache-2.0
