@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 // import ReactDOM from 'react-dom/client';
-import './index.css';
 // import App from './App';
+import React, { useState } from 'react';
+import './index.css';
 import { Tab, Tabs } from "@mui/material";
 import DataGrid from './components/grid/vulnerability-report';
 import Dashboard from './components/dashboard/dashboard';

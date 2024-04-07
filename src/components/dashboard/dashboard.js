@@ -25,7 +25,7 @@ class Dashboard extends Component {
                 </div>
             )
         }
-        
+
         const severityHexColors = [
             '#D22B2B', // Critical
             '#FF7E62', // High
@@ -48,8 +48,6 @@ class Dashboard extends Component {
             '#00C49F',
             '#1F5F8B'
         ];
-
-        
 
         return (
             <div>

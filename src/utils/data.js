@@ -5,11 +5,9 @@ var vulnerabilityData = {}
 async function GetVulnerabilityData(reportUrl) {
   const response = await axios.get(reportUrl)
     .catch(function (error) {
-      // TODO: log something
       // console.log(`No vulnerability report found matching: ${reportUrl}`)
     })
 
-  // Empty or errored response
   if (response === undefined) {
     return []
   }
