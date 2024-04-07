@@ -18,7 +18,7 @@ function App() {
   return (
     <React.Fragment>
       <Tabs value={currentTabIndex} onChange={handleTabChange}>
-        <Tab label='Table' />
+        <Tab label='Table'/>
         <Tab label='Dashboard'/>
       </Tabs>
       {currentTabIndex === 0 && (

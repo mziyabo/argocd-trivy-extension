@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import App from './App';
 import { Tab, Tabs } from "@mui/material";
 import DataGrid from './components/grid/vulnerability-report';
 import Dashboard from './components/dashboard/dashboard';
@@ -18,12 +18,11 @@ const Extension = (props) => {
 
   const { resource, application } = props;
   const appName = application?.metadata?.name || "";
-
   let container = resource?.spec?.template?.spec?.containers[0]?.name || "";
   let resourceName = resource?.metadata?.name || "";
   let resourceNamespace = resource?.metadata?.namespace || "";
-
   let resourceKind = resource?.kind?.toLowerCase() || "";
+
 
   if (resource?.kind === "Pod") {
     container = resource?.spec?.containers[0]?.name
@@ -57,7 +56,6 @@ const Extension = (props) => {
 
 const component = Extension;
 
-// Register the component extension in ArgoCD
 ((window) => {
   window?.extensionsAPI?.registerResourceExtension(
     component,

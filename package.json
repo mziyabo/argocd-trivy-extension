@@ -1,5 +1,5 @@
 {
-  "name": "trivy-argocd-component",
+  "name": "argocd-trivy-extension",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,10 +9,14 @@
     "axios": "1.6.8",
     "gridjs": "^6.2.0",
     "gridjs-react": "^6.1.1",
+    "recharts": "^2.12.3"
+  },
+  "peerDependencies": {
+    "argo-ui": "git+https://github.com/argoproj/argo-ui.git",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "recharts": "^2.12.3"
+    "moment": "^2.29.4"
   },
   "browser": {
     "fs": false,
@@ -21,9 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack --config ./webpack.config.js && tar -C dist -cvf ./dist/resources/extension-Trivy.tar resources",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "webpack --config ./webpack.config.js && tar -C dist -cvf ./dist/resources/extension-trivy.tar resources"
   },
   "eslintConfig": {
     "extends": [

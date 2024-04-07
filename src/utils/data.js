@@ -38,16 +38,15 @@ export async function GridData(reportUrl) {
 export async function DashboardData(reportUrl) {
   vulnerabilityData = await GetVulnerabilityData(reportUrl);
 
-  // TODO: refactor names
   if (vulnerabilityData.length === 0) {
     return {
-      novulnerabilitydata: true
+      noVulnerabilityData: true
     }
   }
 
   return {
-    severityCounts: severityCountData(),
-    fixedToUnfixedData: fixedToUnfixedData(),
+    severityData: severityCountData(),
+    patchSummaryData: patchSummaryData(),
     topVulnerableResourcesData: topVulnerableResourcesData(15),
     vulnerabilityAgeDistribution: vulnerabilityAgeDistribution(),
     vulnerabilitiesByType: vulnerabilitiesByType()
@@ -71,7 +70,7 @@ function severityCountData() {
   return data;
 }
 
-function fixedToUnfixedData() {
+function patchSummaryData() {
   const count = (severity, fixed = true) => {
     return vulnerabilityData.filter(v => (fixed ? v.fixedVersion !== "" : v.fixedVersion === "")
       && v.severity === severity).length
