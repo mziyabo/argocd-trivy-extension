@@ -1,59 +1,61 @@
 import React, { Component } from 'react';
 import { Area, AreaChart, RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell } from 'recharts';
 import { DashboardData } from '../../utils/data';
+import "./dashboard.scss";
 
 class Dashboard extends Component {
-
     state = {
     }
-
     componentDidMount() {
         const fetchData = async () => {
             const res = await DashboardData(this.props.reportUrl).then(data => {
                 return data;
             })
-
-            this.setState({
-                severityData: res.severityCounts,
-                fixedToUnfixedData: res.fixedToUnfixedData,
-                topVulnerableResourcesData: res.topVulnerableResourcesData,
-                vulnerabilitiesByType: res.vulnerabilitiesByType,
-                vulnerabilityAgeDistribution: res.vulnerabilityAgeDistribution,
-                novulnerabilitydata: res.novulnerabilitydata
-            });
+            this.setState(res);
         }
         fetchData();
     }
 
     render() {
-        const { severityData, fixedToUnfixedData, topVulnerableResourcesData, vulnerabilitiesByType, vulnerabilityAgeDistribution, novulnerabilitydata: nodata } = this.state;
-        const severityColors = ['#D22B2B', '#FF7E62', '#F1D86F', '#00C49F', '#0088FE']; // Severities
-        const hexColors = ['#238AB2', '#EE964B', '#299D8F', '#457B9D', '#1F8090', '#E8C469', '#299D8F', '#F4A261', '#2168A6', '#F16889', '#00C49F', '#1F5F8B'];
+        const { severityData, patchSummaryData, topVulnerableResourcesData, vulnerabilitiesByType, vulnerabilityAgeDistribution, noVulnerabilityData } = this.state;
 
-
-        const style = {
-            "marginTop": "10px",
-            "padding": "2px 10px",
-            "display": "block",
-            "background": "#E6E6E6",
-            "width": "250px",
-            "fontWeight": "500",
-            "borderRadius": "50px",
-            "fontSize": "14px",
-        };
-        // TODO: rename these fields better
-        if (nodata) {
+        if (noVulnerabilityData) {
             return (
                 <div style={{ 'margin': '15px' }}>
                 </div>
             )
         }
+        
+        const severityHexColors = [
+            '#D22B2B', // Critical
+            '#FF7E62', // High
+            '#F1D86F', // Medium
+            '#00C49F', // Low
+            '#0088FE'  // Unknown
+        ];
+
+        const hexColors = [
+            '#238AB2',
+            '#EE964B',
+            '#299D8F',
+            '#457B9D',
+            '#1F8090',
+            '#E8C469',
+            '#299D8F',
+            '#F4A261',
+            '#2168A6',
+            '#F16889',
+            '#00C49F',
+            '#1F5F8B'
+        ];
+
+        
 
         return (
             <div>
-                <div style={{ display: 'inline-flex' }}>
+                <div className="vulnerability-charts__wrapper">
                     <div>
-                        <span style={style}>Vulnerabilities by Severity</span>
+                        <span className="vulnerability-charts__title">Vulnerabilities by Severity</span>
                         <PieChart width={500} height={350}>
                             <Pie
                                 dataKey="count"
@@ -64,7 +66,7 @@ class Dashboard extends Component {
                                 fill="#8884d8"
                             >
                                 {severityData?.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={severityColors[index % hexColors.length]} />
+                                    <Cell key={`cell-${index}`} fill={severityHexColors[index % severityHexColors.length]} />
                                 ))}
                             </Pie>
                             <Tooltip />
@@ -77,7 +79,7 @@ class Dashboard extends Component {
                     </div>
 
                     <div>
-                        <span style={style}>Vulnerabilities by Type</span>
+                        <span className="vulnerability-charts__title">Vulnerabilities by Type</span>
                         <PieChart width={550} height={350}>
                             <Pie
                                 dataKey="count"
@@ -101,9 +103,9 @@ class Dashboard extends Component {
                     </div>
 
                     <div style={{ "width": "500px" }}>
-                        <span style={style}>Patchable Vulnerabilities</span>
+                        <span className="vulnerability-charts__title">Patchable Vulnerabilities</span>
                         <ResponsiveContainer width={"100%"} maxHeight={"350px"}>
-                            <RadarChart cx="50%" cy="50%" data={fixedToUnfixedData}>
+                            <RadarChart cx="50%" cy="50%" data={patchSummaryData}>
                                 <PolarGrid />
                                 <PolarAngleAxis dataKey="severity" />
                                 <PolarRadiusAxis angle={30} domain={[0, 150]} />
@@ -116,12 +118,12 @@ class Dashboard extends Component {
                     </div>
                 </div>
 
-                <div style={{ display: 'inline-flex' }}>
+                <div className="vulnerability-charts__wrapper">
 
                     <div>
-                        <span style={style}>Top Vulnerable Resources</span>
+                        <span className="vulnerability-charts__title">Top Vulnerable Resources</span>
                         <BarChart
-                            width={1000}
+                            width={1050}
                             height={370}
                             data={topVulnerableResourcesData}
                             margin={{
@@ -145,7 +147,7 @@ class Dashboard extends Component {
                     </div>
 
                     <div>
-                        <span style={style}>Vulnerabilities by Year</span>
+                        <span className="vulnerability-charts__title">Vulnerabilities by Year</span>
                         <AreaChart
                             width={500}
                             height={350}
