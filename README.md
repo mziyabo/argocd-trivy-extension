@@ -4,7 +4,7 @@ Argo CD UI extension that displays vulnerability report data from [Trivy](https:
 
 `Trivy` creates a vulnerability report Kubernetes resource with the results of a security scan. The UI extension then parses the report data and displays it as a grid and dashboard viewable in Pod resources within the Argo CD UI.
 
-![Table](./docs/table.png) ![Vulnerabilities Dashboard](./docs/dashboard.png)
+<img src="./docs/table.png" width="85%" display="inline-flex"/> <img alt="vulnerabilities dashboard" src="./docs/dashboard.png" width="85%"/>
 
 ## Prerequisites
 
