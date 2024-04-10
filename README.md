@@ -68,10 +68,10 @@ spec:
           emptyDir: {}
 ```
 
-### Release Notes
+## Release Notes
 
 WIP, contributions welcome
 
-### License
+## License
 
 Apache-2.0
