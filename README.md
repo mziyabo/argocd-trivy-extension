@@ -17,7 +17,7 @@ The UI extension needs to be installed by mounting the React component in Argo C
 
 ### Helm
 
-Use this values.yaml file to install the extension using Helm:
+To install the UI extension with the [Argo CD Helm chart](https://artifacthub.io/packages/helm/argo/argo-cd) add the following to the values file:
 
 ```yaml
 server:
@@ -34,7 +34,7 @@ server:
 
 ### Kustomize
 
-The yaml file below is an example of how to define a kustomize patch to install this UI extension:
+Alternatively, the yaml file below can be used as an example of how to define a kustomize patch to install this UI extension:
 
 ```yaml
 apiVersion: apps/v1
