@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 import './index.css';
 import { Tab, Tabs } from "@mui/material";
 import DataGrid from './components/grid/vulnerability-report';
 import Dashboard from './components/dashboard/dashboard';
+
+// TODO: remove this for production - only required testing locally
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
 
 const Extension = (props) => {
 
