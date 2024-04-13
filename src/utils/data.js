@@ -47,7 +47,8 @@ export async function DashboardData(reportUrl) {
     patchSummaryData: patchSummaryData(),
     topVulnerableResourcesData: topVulnerableResourcesData(15),
     vulnerabilityAgeDistribution: vulnerabilityAgeDistribution(),
-    vulnerabilitiesByType: vulnerabilitiesByType()
+    vulnerabilitiesByType: vulnerabilitiesByType(),
+    noVulnerabilityData: false
   }
 }
 

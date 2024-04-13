@@ -16,6 +16,18 @@ class Dashboard extends Component {
         fetchData();
     }
 
+    componentDidUpdate(prevProp, prevState){
+        if (prevProp.reportUrl !== this.props.reportUrl) {
+            const fetchData = async () => {
+                const res = await DashboardData(this.props.reportUrl).then(data => {
+                    return data;
+                })
+                this.setState(res);
+            }
+            fetchData();
+        }
+    }
+
     render() {
         const { severityData, patchSummaryData, topVulnerableResourcesData, vulnerabilitiesByType, vulnerabilityAgeDistribution, noVulnerabilityData } = this.state;
 
