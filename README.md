@@ -26,10 +26,11 @@ server:
     extensionList:
       - name: extension-trivy
         env:
+          # URLs used in example are for the latest release, replace with the desired version if needed
           - name: EXTENSION_URL
-            value: https://github.com/mziyabo/argocd-trivy-extension/releases/download/v0.2.0/extension-trivy.tar
+            value: https://github.com/mziyabo/argocd-trivy-extension/releases/latest/download/extension-trivy.tar
           - name: EXTENSION_CHECKSUM_URL
-            value: https://github.com/mziyabo/argocd-trivy-extension/releases/download/v0.2.0/extension-trivy_checksums.txt
+            value: https://github.com/mziyabo/argocd-trivy-extension/releases/latest/download/extension-trivy_checksums.txt
 ```
 
 ### Kustomize
@@ -48,10 +49,11 @@ spec:
         - name: extension-trivy
           image: quay.io/argoprojlabs/argocd-extension-installer:v0.0.1
           env:
+          # URLs used in example are for the latest release, replace with the desired version if needed
           - name: EXTENSION_URL
-            value: https://github.com/mziyabo/argocd-trivy-extension/releases/download/v0.2.0/extension-trivy.tar
+            value: https://github.com/mziyabo/argocd-trivy-extension/releases/latest/download/extension-trivy.tar
           - name: EXTENSION_CHECKSUM_URL
-            value: https://github.com/mziyabo/argocd-trivy-extension/releases/download/v0.2.0/extension-trivy_checksums.txt
+            value: https://github.com/mziyabo/argocd-trivy-extension/releases/latest/download/extension-trivy_checksums.txt
           volumeMounts:
             - name: extensions
               mountPath: /tmp/extensions/
