@@ -1,8 +1,14 @@
 name: release
 on: 
     workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
 jobs:
   build:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,7 +21,7 @@ jobs:
       - name: Upload artifact to GitHub Releases
         run: |
             version="v$(node -p "require('./package.json').version")"
-            sha256sum ./dist/resources/extension-trivy.tar > extension-trivy_checksums.txt
+            (cd ./dist/resources && sha256sum extension-trivy.tar) > extension-trivy_checksums.txt
             gh release create -F CHANGELOG.md $version ./dist/resources/extension-trivy.tar ./extension-trivy_checksums.txt
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

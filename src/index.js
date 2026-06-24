@@ -77,4 +77,5 @@ const component = Extension;
   window?.extensionsAPI?.registerResourceExtension(component, '', 'Pod', 'Vulnerabilities', { icon: "fa fa-triangle-exclamation" });
   window?.extensionsAPI?.registerResourceExtension(component, '*', 'StatefulSet', 'Vulnerabilities', { icon: "fa fa-triangle-exclamation" });
   window?.extensionsAPI?.registerResourceExtension(component, '*', 'CronJob', 'Vulnerabilities', { icon: "fa fa-triangle-exclamation" });
+  window?.extensionsAPI?.registerResourceExtension(component, '*', 'Job', 'Vulnerabilities', { icon: "fa fa-triangle-exclamation" });
 })(window);
