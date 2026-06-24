@@ -3,22 +3,22 @@ import axios from 'axios';
 var vulnerabilityData = {}
 
 async function GetVulnerabilityData(reportUrl) {
-  const response = await axios.get(reportUrl)
-    .catch(function (error) {
-      // console.log(`No vulnerability report found matching: ${reportUrl}`)
-    })
-
-  if (response === undefined) {
-    return []
+  try {
+    const response = await axios.get(reportUrl);
+    const manifest = JSON.parse(response?.data?.manifest);
+    const vulnerabilities = manifest?.report?.vulnerabilities ?? [];
+    return {
+      status: vulnerabilities.length > 0 ? 'ok' : 'clean',
+      vulnerabilities,
+    };
+  } catch (error) {
+    return { status: 'error', vulnerabilities: [] };
   }
-  return JSON.parse(response?.data?.manifest).report.vulnerabilities;
 }
 
 export async function GridData(reportUrl) {
-  const vulnData = await GetVulnerabilityData(reportUrl);
-
-  const data = [];
-  vulnData.forEach(v => data.push([
+  const { status, vulnerabilities } = await GetVulnerabilityData(reportUrl);
+  const rows = vulnerabilities.map(v => [
     v.resource,
     v.score,
     v.severity,
@@ -27,29 +27,27 @@ export async function GridData(reportUrl) {
     v.primaryLink,
     v.publishedDate,
     v.lastModifiedDate,
-    v.title
-  ]));
-
-  return data
+    v.title,
+  ]);
+  return { status, rows };
 }
 
 export async function DashboardData(reportUrl) {
-  vulnerabilityData = await GetVulnerabilityData(reportUrl);
+  const { status, vulnerabilities } = await GetVulnerabilityData(reportUrl);
+  vulnerabilityData = vulnerabilities;
 
-  if (vulnerabilityData.length === 0) {
-    return {
-      noVulnerabilityData: true
-    }
+  if (status !== 'ok') {
+    return { status };
   }
 
   return {
+    status: 'ok',
     severityData: severityCountData(),
     patchSummaryData: patchSummaryData(),
     topVulnerableResourcesData: topVulnerableResourcesData(15),
     vulnerabilityAgeDistribution: vulnerabilityAgeDistribution(),
     vulnerabilitiesByType: vulnerabilitiesByType(),
-    noVulnerabilityData: false
-  }
+  };
 }
 
 function severityCountData() {

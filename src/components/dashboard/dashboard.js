@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Area, AreaChart, RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell } from 'recharts';
 import { DashboardData } from '../../utils/data';
 import "./dashboard.scss";
+import "../grid/vulnerability-report.scss";
 
 class Dashboard extends Component {
     state = {
@@ -29,13 +30,26 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { severityData, patchSummaryData, topVulnerableResourcesData, vulnerabilitiesByType, vulnerabilityAgeDistribution, noVulnerabilityData } = this.state;
+        const { severityData, patchSummaryData, topVulnerableResourcesData, vulnerabilitiesByType, vulnerabilityAgeDistribution, status } = this.state;
 
-        if (noVulnerabilityData) {
+        if (status === 'clean') {
             return (
-                <div style={{ 'margin': '15px' }}>
+                <div className="vulnerability-report__banner vulnerability-report__banner_success">
+                    No vulnerabilities found for this image.
                 </div>
             )
+        }
+
+        if (status === 'error') {
+            return (
+                <div className="vulnerability-report__banner vulnerability-report__banner_error">
+                    No vulnerability report available for this container.
+                </div>
+            )
+        }
+
+        if (status !== 'ok') {
+            return <div style={{ 'margin': '15px' }} />
         }
 
         const severityHexColors = [
